@@ -5,6 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
+      - name: Testing dependaction group by
+        id: group-by
+        uses: rgdelato/dependaction-group-by@v0.0.0-2
+        with:
+          exclude-packages: [jquery]
+          limit: 5
+      # Use the output from the `hello` step
+      - name: Debug output
+        run: echo "Group by returned ${{ steps.group-by.outputs.matrix }}"
       - name: Hello world action step
         id: hello
         uses: rgdelato/hello-world-javascript-action@v1.1
