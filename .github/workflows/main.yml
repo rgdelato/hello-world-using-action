@@ -7,8 +7,9 @@ jobs:
     steps:
       - name: Testing dependaction group by
         id: group-by
-        uses: rgdelato/dependaction-group-by@v0.0.0-5
+        uses: rgdelato/dependaction-group-by@v0.0.0-6
         with:
+          directories: ""
           exclude-packages: jquery
           limit: 5
       # Use the output from the `hello` step
