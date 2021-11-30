@@ -9,7 +9,7 @@ jobs:
         id: group-by
         uses: rgdelato/dependaction-group-by@v0.0.0-2
         with:
-          exclude-packages: [jquery]
+          exclude-packages: jquery
           limit: 5
       # Use the output from the `hello` step
       - name: Debug output
