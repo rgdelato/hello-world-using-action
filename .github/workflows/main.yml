@@ -26,13 +26,6 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.test-group-by-job.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-          registry-url: "https://registry.npmjs.org"
-      - name: Debug matrix
-        run: echo 'Matrix ${{ toJson(matrix) }}'
       - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-10
         with:
-          matrix: ${{ toJson(matrix) }}
+          matrix: ${{ matrix }}
