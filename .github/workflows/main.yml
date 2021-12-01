@@ -7,6 +7,7 @@ jobs:
     outputs:
       matrix: ${{ steps.group-by.outputs.matrix }}
     steps:
+      - uses: actions/checkout@v2
       - name: Testing dependaction group by
         id: group-by
         uses: rgdelato/dependaction-group-by@v0.0.0-20
