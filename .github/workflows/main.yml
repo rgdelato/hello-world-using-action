@@ -12,7 +12,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: Testing dependaction group by
         id: group-by
-        uses: rgdelato/dependaction-group-by@v0.0.0-19
+        uses: rgdelato/dependaction-group-by@v0.0.0-20
         with:
           directories: ""
           exclude-packages: jquery
