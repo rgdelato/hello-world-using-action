@@ -1,9 +1,11 @@
 on: [push, workflow_dispatch]
 
 jobs:
-  hello_world_job:
+  test-group-by-job:
     runs-on: ubuntu-latest
     name: A job to say hello
+    outputs:
+      matrix: ${{ steps.group-by.outputs.matrix }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -19,12 +21,18 @@ jobs:
           limit: 5
       # Use the output from the `hello` step
       - name: Debug output
-        run: echo 'Group by returned ${{ steps.group-by.outputs.matrix }}'
-      - name: Hello world action step
-        id: hello
-        uses: rgdelato/hello-world-javascript-action@v1.1
-        with:
-          who-to-greet: "Mona the Octocat"
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+        run: echo 'Group by ${{ steps.group-by.outputs.matrix }}'
+    test-create-pr-job:
+      if: always()
+      needs: test-group-by-job
+      runs-on: ubuntu-latest
+      strategy:
+        matrix: ${{ fromJson(needs.test-group-by-job.outputs.matrix) }}
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v2
+          with:
+            node-version: "16"
+            registry-url: "https://registry.npmjs.org"
+        - name: Debug matrix
+        run: echo 'Matrix ${{ toJson(matrix) }}'
