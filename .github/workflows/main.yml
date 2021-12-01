@@ -28,4 +28,4 @@ jobs:
     steps:
       - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-10
         with:
-          matrix: ${{ matrix }}
+          matrix: ${{ toJson(matrix) }}
