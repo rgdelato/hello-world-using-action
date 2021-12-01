@@ -23,6 +23,7 @@ jobs:
       - name: Debug output
         run: echo 'Group by ${{ steps.group-by.outputs.matrix }}'
   test-create-pr-job:
+    name: Create Pull Request
     if: always()
     needs: test-group-by-job
     runs-on: ubuntu-latest
@@ -35,4 +36,4 @@ jobs:
           node-version: "16"
           registry-url: "https://registry.npmjs.org"
       - name: Debug matrix
-      run: echo 'Matrix ${{ toJson(matrix) }}'
+        run: echo 'Matrix ${{ toJson(matrix) }}'
