@@ -8,10 +8,6 @@ jobs:
       matrix: ${{ steps.group-by.outputs.matrix }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-          registry-url: "https://registry.npmjs.org"
       - name: Testing dependaction group by
         id: group-by
         uses: rgdelato/dependaction-group-by@v0.0.0-20
