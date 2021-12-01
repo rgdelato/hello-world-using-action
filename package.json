@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/rgdelato/hello-world-using-action#readme",
   "dependencies": {
-    "jquery": "^2.2.4",
+    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "mobx": "^5.15.7",
     "react": "^15.7.0",
