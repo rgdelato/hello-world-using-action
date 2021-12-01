@@ -3,7 +3,7 @@ on: [push, workflow_dispatch]
 jobs:
   test-group-by-job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Group By
     outputs:
       matrix: ${{ steps.group-by.outputs.matrix }}
     steps:
@@ -33,6 +33,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: Debug matrix
         run: echo 'Matrix ${{ toJson(matrix) }}'
-      - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-6
+      - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-7
         with:
           matrix: ${{ toJson(matrix) }}
