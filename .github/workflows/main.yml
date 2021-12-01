@@ -33,6 +33,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: Debug matrix
         run: echo 'Matrix ${{ toJson(matrix) }}'
-      - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-3
+      - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-4
         with:
           matrix: ${{ toJson(matrix) }}
