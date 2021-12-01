@@ -19,7 +19,7 @@ jobs:
           limit: 5
       # Use the output from the `hello` step
       - name: Debug output
-        run: echo "Group by returned ${{ steps.group-by.outputs.matrix }}"
+        run: echo 'Group by returned ${{ steps.group-by.outputs.matrix }}'
       - name: Hello world action step
         id: hello
         uses: rgdelato/hello-world-javascript-action@v1.1
