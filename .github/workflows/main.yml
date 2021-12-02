@@ -1,31 +1,34 @@
-on: [push, workflow_dispatch]
+on:
+  cron: "0 10 * * *" # 10am every day
+  workflow_dispatch:
 
 jobs:
   test-group-by-job:
-    runs-on: ubuntu-latest
     name: Group By
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.group-by.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v2
       - name: Testing dependaction group by
         id: group-by
-        uses: rgdelato/dependaction-group-by@v0.0.0-20
+        uses: rgdelato/dependaction-group-by@v0.0.0-22
         with:
-          directories: ""
-          exclude-packages: jquery
+          directories: "" # e.g. Clients/Web,Clients/Mobile
+          exclude-packages: "@types/jquery,@types/knockout,jquery,knockout,resumablejs"
           limit: 5
-      # Use the output from the `hello` step
-      - name: Debug output
-        run: echo 'Group by ${{ steps.group-by.outputs.matrix }}'
   test-create-pr-job:
     name: Create Pull Request
-    if: always()
-    needs: test-group-by-job
     runs-on: ubuntu-latest
+    needs: test-group-by-job
+    if: always()
     strategy:
       matrix: ${{ fromJson(needs.test-group-by-job.outputs.matrix) }}
     steps:
-      - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-10
+      - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-13
         with:
           matrix: ${{ toJson(matrix) }}
+          install-command: npm run bootstrap
+          reviewers-major: servicetitan/frontend-platform-dependabot-reviewers
+          reviewers-minor: sistr
+          reviewers-patch: sistr
+          labels: dependencies,bot
