@@ -1,5 +1,6 @@
 on:
-  cron: "0 10 * * 1-5" # 10am Mon-Fri
+  schedule:
+    - cron: "0 10 * * 1-5" # 10am Mon-Fri
   workflow_dispatch:
 
 jobs:
