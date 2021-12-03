@@ -1,5 +1,5 @@
 on:
-  cron: "0 10 * * *" # 10am every day
+  cron: "0 10 * * 1-5" # 10am Mon-Fri
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Testing dependaction group by
         id: group-by
-        uses: rgdelato/dependaction-group-by@v0.0.0-22
+        uses: rgdelato/dependaction-group-by@v0.0.0-25
         with:
           directories: "" # e.g. Clients/Web,Clients/Mobile
           exclude-packages: |
@@ -36,4 +36,6 @@ jobs:
           reviewers-major: servicetitan/frontend-platform-dependabot-reviewers
           reviewers-minor: sistr
           reviewers-patch: sistr
-          labels: dependencies,bot
+          labels: |
+            dependencies
+            bot
