@@ -1,3 +1,5 @@
+name: Dependaction
+
 on:
   schedule:
     - cron: "0 10 * * 1-5" # 10am Mon-Fri
@@ -12,7 +14,7 @@ jobs:
     steps:
       - name: Testing dependaction group by
         id: group-by
-        uses: rgdelato/dependaction-group-by@v0.0.0-25
+        uses: rgdelato/dependaction-group-by@v0.0.0-26
         with:
           directories: "" # e.g. Clients/Web,Clients/Mobile
           exclude-packages: |
@@ -21,7 +23,7 @@ jobs:
             jquery
             knockout
             resumablejs
-          limit: 5
+          limit: 1
   test-create-pr-job:
     name: Create Pull Request
     runs-on: ubuntu-latest
@@ -30,11 +32,12 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.test-group-by-job.outputs.matrix) }}
     steps:
-      - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-13
+      - uses: rgdelato/dependaction-create-pull-requests@v0.0.0-14
         with:
           matrix: ${{ toJson(matrix) }}
           install-command: npm run bootstrap
-          reviewers-major: servicetitan/frontend-platform-dependabot-reviewers
+          reviewers: rgdelato
+          reviewers-major: rgdelato
           reviewers-minor: sistr
           reviewers-patch: sistr
           labels: |
