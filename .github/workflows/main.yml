@@ -28,7 +28,7 @@ jobs:
             jquery
             knockout
             resumablejs
-          limit: ${{ inputs.limit }}
+          limit: ${{ github.event.inputs.limit }}
   test-create-pr-job:
     name: Create Pull Request
     runs-on: ubuntu-latest
