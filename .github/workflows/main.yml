@@ -2,8 +2,13 @@ name: Dependaction
 
 on:
   schedule:
-    - cron: "0 10 * * 1-5" # 10am Mon-Fri
+    - cron: "0 18 * * 1-5" # 10am Mon-Fri
   workflow_dispatch:
+    inputs:
+      limit:
+        default: 1
+        required: false
+        type: string
 
 jobs:
   test-group-by-job:
@@ -23,7 +28,7 @@ jobs:
             jquery
             knockout
             resumablejs
-          limit: 1
+          limit: ${{ inputs.limit }}
   test-create-pr-job:
     name: Create Pull Request
     runs-on: ubuntu-latest
@@ -37,7 +42,7 @@ jobs:
           matrix: ${{ toJson(matrix) }}
           install-command: npm run bootstrap
           reviewers: rgdelato
-          reviewers-major: rgdelato
+          reviewers-major: servicetitan/frontend-platform-dependabot-reviewers
           reviewers-minor: sistr
           reviewers-patch: sistr
           labels: |
