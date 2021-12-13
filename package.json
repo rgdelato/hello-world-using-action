@@ -20,7 +20,7 @@
   "dependencies": {
     "jquery": "^2.2.4",
     "lodash": "^4.17.21",
-    "mobx": "^5.15.7",
+    "mobx": "^6.3.8",
     "react": "^15.7.0",
     "react-dom": "^15.7.0",
     "react-router": "^4.3.1",
