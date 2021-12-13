@@ -1,4 +1,4 @@
-name: Dependaction
+name: Create PRs (Dependaction)
 
 on:
   schedule:
@@ -23,6 +23,7 @@ jobs:
         with:
           directories: "" # e.g. Clients/Web,Clients/Mobile
           exclude-packages: |
+            @docusaurus/*
             @types/jquery
             @types/knockout
             jquery
@@ -31,14 +32,15 @@ jobs:
           limit: ${{ github.event.inputs.limit }}
   test-create-pr-job:
     name: Create Pull Request
-    runs-on: ubuntu-latest
-    needs: test-group-by-job
     if: always()
+    needs: test-group-by-job
+    runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.test-group-by-job.outputs.matrix) }}
     steps:
       - uses: rgdelato/dependaction-create-pull-requests@v0.0.3
         with:
+          token: ${{ secrets.PAT }}
           matrix: ${{ toJson(matrix) }}
           install-command: npm run bootstrap
           team-reviewers-major: servicetitan/frontend-platform-dependabot-reviewers
