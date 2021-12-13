@@ -1,0 +1,14 @@
+name: Rebase (Dependaction)
+on:
+  push:
+    branches: [master]
+jobs:
+  test-rebase:
+    name: Rebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rebase
+        id: rebase
+        uses: rgdelato/dependaction-rebase@v0.0.1
+        with:
+          base-branch: master
