@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.test-group-by-job.outputs.matrix) }}
     steps:
-      - uses: rgdelato/dependaction-create-pull-requests@v0.0.3-1
+      - uses: rgdelato/dependaction-create-pull-requests@v0.0.4
         with:
           token: ${{ secrets.PAT }}
           matrix: ${{ toJson(matrix) }}
