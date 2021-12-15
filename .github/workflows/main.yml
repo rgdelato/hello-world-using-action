@@ -38,11 +38,11 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.test-group-by-job.outputs.matrix) }}
     steps:
-      - uses: rgdelato/dependaction-create-pull-requests@v0.0.4-2
+      - uses: rgdelato/dependaction-create-pull-requests@v0.0.4-3
         with:
           token: ${{ secrets.PAT }}
           matrix: ${{ toJson(matrix) }}
-          approve-delay: 75
+          delay-approve: 75
           install-command: npm run bootstrap
           team-reviewers-major: servicetitan/frontend-platform-dependabot-reviewers
           reviewers-minor: sistr
