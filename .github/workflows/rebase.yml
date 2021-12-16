@@ -9,6 +9,7 @@ jobs:
     steps:
       - name: Rebase
         id: rebase
-        uses: rgdelato/dependaction-rebase@v0.0.1
+        uses: rgdelato/dependaction-rebase@v0.0.1-1
         with:
+          token: ${{ secrets.PAT }}
           base-branch: master

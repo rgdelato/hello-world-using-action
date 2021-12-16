@@ -45,7 +45,7 @@ jobs:
           delay-approve: 75
           install-command: npm run bootstrap
           team-reviewers-major: servicetitan/frontend-platform-dependabot-reviewers
-          reviewers-minor: sistr
-          reviewers-patch: sistr
+          assignees-minor: sistr
+          assignees-patch: sistr
           labels: |
             dependencies
