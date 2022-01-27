@@ -1,8 +1,8 @@
 name: Create PRs (Dependaction)
 
 on:
-  schedule:
-    - cron: "0 18 * * 1-5" # 10am Mon-Fri
+  # schedule:
+  #   - cron: "0 18 * * 1-5" # 10am Mon-Fri
   workflow_dispatch:
     inputs:
       limit:
