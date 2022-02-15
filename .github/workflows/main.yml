@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Testing dependaction group by
         id: group-by
-        uses: rgdelato/dependaction-group-by@v0.0.2
+        uses: rgdelato/dependaction-group-by@v0.0.3
         with:
           directories: "" # e.g. Clients/Web,Clients/Mobile
           exclude-packages: |
