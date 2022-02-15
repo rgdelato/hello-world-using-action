@@ -43,7 +43,7 @@ jobs:
           token: ${{ secrets.PAT }}
           matrix: ${{ toJson(matrix) }}
           install-command: npm run bootstrap
-          team-reviewers-major: rgdelato
+          reviewers-major: rgdelato
           assignees-minor: rgdelato
           assignees-patch: rgdelato
           labels: |
