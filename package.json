@@ -22,7 +22,7 @@
     "@auto-it/omit-release-notes": "^10.31.0",
     "@auto-it/released": "^10.31.0",
     "@types/jest": "^27.0.1",
-    "auto": "^10.31.0",
+    "auto": "^10.34.1",
     "jest": "^27.2.0",
     "jquery": "^2.2.4",
     "lodash": "^4.17.21",
