@@ -20,7 +20,7 @@ jobs:
       - run: touch hello.txt
 
       - name: Check for Untracked Changes
-      - run: |
+        run: |
             git status
             test -z "$(git status --porcelain)"
 
