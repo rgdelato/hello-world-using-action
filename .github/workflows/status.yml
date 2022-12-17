@@ -16,6 +16,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm i -g npm@7
 
+      - run: touch hello.txt
+
       - name: Check for Untracked Changes
       - run: |
             git status
