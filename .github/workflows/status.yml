@@ -1,0 +1,20 @@
+name: Status Test
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  preview:
+    name: Preview changelog and versioning changes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm i -g npm@7
+      - run: touch hello.txt
+      - run: test -z "$(git status --porcelain)"
+      - run: echo 'Did we make it this far?'
