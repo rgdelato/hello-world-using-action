@@ -22,6 +22,14 @@ jobs:
 
       - name: Run a Git status
         run: git status
+      
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git fetch --unshallow --tags
+          touch foo.txt
+          git add --all
+          git commit -a -m 'Adding new file'
 
   update-latest-branch:
     name: Update public websites
@@ -43,6 +51,9 @@ jobs:
         run: npm i -g npm@7
         
       - run: |
+          git --no-pager log -n 2
+          git pull --rebase
+          git --no-pager log -n 2
           git checkout latest
           git rebase master
           git push
