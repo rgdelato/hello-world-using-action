@@ -24,6 +24,8 @@ jobs:
         run: git status
       
       - run: |
+          echo "If this step errors because of a package-lock.json file, see:"
+          echo "https://github.com/servicetitan/anvil/blob/master/docs/Releasing.md#issues-with-lockfiles-and-other-generated-files"
           git config user.name github-actions
           git config user.email github-actions@github.com
           touch foo.txt
