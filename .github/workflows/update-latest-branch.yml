@@ -29,6 +29,7 @@ jobs:
           touch foo.txt
           git add --all
           git commit -a -m 'Adding new file'
+          git push
 
   update-latest-branch:
     name: Update public websites
