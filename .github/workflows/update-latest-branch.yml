@@ -1,61 +1,61 @@
-name: Rebase Test
+# name: Rebase Test
 
-on:
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+# on:
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
 
-jobs:
-  preview:
-    name: Doing something
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: 'https://registry.npmjs.org'
+# jobs:
+#   preview:
+#     name: Doing something
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
 
-      - run: npm i -g npm@7
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 16
+#           registry-url: 'https://registry.npmjs.org'
 
-      - name: Run a Git status
-        run: git status
-      
-      - run: |
-          echo "If this step errors because of a package-lock.json file, see:"
-          echo "https://github.com/servicetitan/anvil/blob/master/docs/Releasing.md#issues-with-lockfiles-and-other-generated-files"
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          touch foo.txt
-          git add --all
-          git commit -a -m 'Adding new file'
-          git push
+#       - run: npm i -g npm@7
 
-  update-latest-branch:
-    name: Update public websites
-    needs: preview
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+#       - name: Run a Git status
+#         run: git status
 
-      - name: Setup Node v16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+#       - run: |
+#           echo "If this step errors because of a package-lock.json file, see:"
+#           echo "https://github.com/servicetitan/anvil/blob/master/docs/Releasing.md#issues-with-lockfiles-and-other-generated-files"
+#           git config user.name github-actions
+#           git config user.email github-actions@github.com
+#           touch foo.txt
+#           git add --all
+#           git commit -a -m 'Adding new file'
+#           git push
 
-      - name: Setup NPM 7
-        run: npm i -g npm@7
-        
-      - run: |
-          git --no-pager log -n 2
-          git pull --rebase
-          git --no-pager log -n 2
-          git checkout latest
-          git rebase master
-          git push
+#   update-latest-branch:
+#     name: Update public websites
+#     needs: preview
+#     runs-on: ubuntu-latest
+#     environment: production
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+
+#       - name: Setup Node v16
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 16
+
+#       - name: Setup NPM 7
+#         run: npm i -g npm@7
+
+#       - run: |
+#           git --no-pager log -n 2
+#           git pull --rebase
+#           git --no-pager log -n 2
+#           git checkout latest
+#           git rebase master
+#           git push
