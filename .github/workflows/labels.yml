@@ -30,6 +30,8 @@ jobs:
         with:
           node-version: "16"
           registry-url: "https://registry.npmjs.org"
+      - name: npm ci
+        run: npm ci
       - name: Run JS script
         run: |
           node check-branch.js
