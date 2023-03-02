@@ -23,4 +23,6 @@ jobs:
     needs: check_labels
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Running!"
+      - name: Run JS script
+        run: |
+          check-branch.js
