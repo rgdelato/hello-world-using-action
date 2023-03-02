@@ -42,6 +42,13 @@ jobs:
             console.log(JSON.stringify(context.payload.pull_request.labels, null, 2))
             return true
           result-encoding: string
+      - uses: actions/github-script@v6
+        id: set-result-2
+        with:
+          script: |
+            console.log(JSON.stringify(github, null, 2))
+            return true
+          result-encoding: string
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
       - name: Testing env vars
