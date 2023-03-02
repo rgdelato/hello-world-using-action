@@ -26,7 +26,11 @@ jobs:
       - uses: actions/github-script@v6
         id: set-result
         with:
-          script: return JSON.stringify(context.payload.pull_request, null, 2)
+          script: |
+            console.log(JSON.stringify(context.payload.pull_request.head.ref, null, 2))
+            console.log(JSON.stringify(context.payload.pull_request.base.ref, null, 2))
+            console.log(JSON.stringify(context.payload.pull_request.labels, null, 2))
+            return false
           result-encoding: string
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
