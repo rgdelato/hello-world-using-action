@@ -32,4 +32,4 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: Run JS script
         run: |
-          check-branch.js
+          node check-branch.js
