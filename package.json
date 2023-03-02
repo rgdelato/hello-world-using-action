@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/rgdelato/hello-world-using-action#readme",
   "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
     "@auto-it/first-time-contributor": "^10.31.0",
     "@auto-it/omit-release-notes": "^10.31.0",
     "@auto-it/released": "^10.31.0",

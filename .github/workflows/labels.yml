@@ -23,6 +23,13 @@ jobs:
     needs: check_labels
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repo's default branch
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          registry-url: "https://registry.npmjs.org"
       - name: Run JS script
         run: |
           check-branch.js
