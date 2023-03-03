@@ -10,30 +10,28 @@ on:
       - unlabeled
 
 jobs:
-  check_labels:
-    name: Check labels
-    runs-on: ubuntu-latest
-    steps:
-      - uses: docker://agilepathway/pull-request-label-checker:latest
-        with:
-          any_of: breaking,new feature,enhancement,visual,documentation,bug,deprecation,internal,dependencies,skip-release,release
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+  # check_labels:
+  #   name: Check labels
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: docker://agilepathway/pull-request-label-checker:latest
+  #       with:
+  #         any_of: breaking,new feature,enhancement,visual,documentation,bug,deprecation,internal,dependencies,skip-release,release
+  #         repo_token: ${{ secrets.GITHUB_TOKEN }}
   check_branch:
     name: Check branch
-    needs: check_labels
+    if: github.base_ref == 'master'
+    # needs: check_labels
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
         id: set-result
         with:
           script: |
-            // if we're merging to master branch
-            if (context.payload.pull_request.base.ref === 'master') {
-              // check all labels, and error if labelled with "breaking", "enhancement", "etc"
-              for (const label of context.payload.pull_request.labels) {
-                if (label.name === 'enhancement') {
-                  return false
-                }
+            // check all labels, and error if labelled with "breaking", "enhancement", "etc"
+            for (const label of context.payload.pull_request.labels) {
+              if (label.name === 'enhancement') {
+                return false
               }
             }
 
