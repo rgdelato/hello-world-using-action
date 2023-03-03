@@ -29,11 +29,11 @@ jobs:
         with:
           script: |
             // all major/minor labels
-            const labels = ['breaking', 'new feature', 'enhancement', 'visual', 'deprecation']
+            const majorMinorLabels = ['breaking', 'new feature', 'enhancement', 'visual', 'deprecation']
 
             // check all labels, and error if labelled with "breaking", "enhancement", "etc"
             for (const label of context.payload.pull_request.labels) {
-              if (labels.includes(label.name)) {
+              if (majorMinorLabels.includes(label.name)) {
                 return false
               }
             }
@@ -41,13 +41,6 @@ jobs:
             console.log(JSON.stringify(context.payload.pull_request.head.ref, null, 2))
             console.log(JSON.stringify(context.payload.pull_request.base.ref, null, 2))
             console.log(JSON.stringify(context.payload.pull_request.labels, null, 2))
-            return true
-          result-encoding: string
-      - uses: actions/github-script@v6
-        id: set-result-2
-        with:
-          script: |
-            console.log(JSON.stringify(github, null, 2))
             return true
           result-encoding: string
       - name: Get result
