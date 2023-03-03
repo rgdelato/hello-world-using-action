@@ -27,13 +27,13 @@ jobs:
         id: set-result
         with:
           script: |
-            // all major/minor labels
-            const majorMinorLabels = ['breaking', 'new feature', 'enhancement', 'visual', 'deprecation']
-
-            // check all labels, and error if labelled with "breaking", "enhancement", "etc"
-            for (const label of context.payload.pull_request.labels) {
-              if (majorMinorLabels.includes(label.name)) {
-                return false
+            // if we're merging to master branch
+            if (context.payload.pull_request.base.ref === 'master') {
+              // check all labels, and error if labelled with "breaking", "enhancement", "etc"
+              for (const label of context.payload.pull_request.labels) {
+                if (label.name === 'enhancement') {
+                  return false
+                }
               }
             }
 
