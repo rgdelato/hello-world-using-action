@@ -23,17 +23,18 @@ jobs:
     # needs: check_labels
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v6
+      - if: github.base_ref == 'master'
+        uses: actions/github-script@v6
         id: set-result
         with:
           script: |
-            // if we're merging to master branch
-            if (context.payload.pull_request.base.ref === 'master') {
-              // check all labels, and error if labelled with "breaking", "enhancement", "etc"
-              for (const label of context.payload.pull_request.labels) {
-                if (label.name === 'enhancement') {
-                  return false
-                }
+            // all major/minor labels
+            const labels = ['breaking', 'new feature', 'enhancement', 'visual', 'deprecation']
+
+            // check all labels, and error if labelled with "breaking", "enhancement", "etc"
+            for (const label of context.payload.pull_request.labels) {
+              if (labels.includes(label.name)) {
+                return false
               }
             }
 
