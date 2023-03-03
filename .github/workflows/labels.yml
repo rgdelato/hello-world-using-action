@@ -10,17 +10,17 @@ on:
       - unlabeled
 
 jobs:
-  # check_labels:
-  #   name: Check labels
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: docker://agilepathway/pull-request-label-checker:latest
-  #       with:
-  #         any_of: breaking,new feature,enhancement,visual,documentation,bug,deprecation,internal,dependencies,skip-release,release
-  #         repo_token: ${{ secrets.GITHUB_TOKEN }}
+  check_labels:
+    name: Check labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          any_of: breaking,new feature,enhancement,visual,documentation,bug,deprecation,internal,dependencies,skip-release,release
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
   check_branch:
     name: Check branch
-    # needs: check_labels
+    needs: check_labels
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
