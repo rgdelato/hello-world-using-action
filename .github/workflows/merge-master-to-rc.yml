@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Nightly Merge
+      - name: Merge master to rc
         uses: robotology/gh-action-nightly-merge@v1.4.0
         with:
           stable_branch: "master"
@@ -25,3 +25,16 @@ jobs:
           allow_ff: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: FAIL
+        run: |
+          exit 1
+
+      - name: Create pull request
+        if: ${{ failure() }}
+        uses: peter-evans/create-pull-request@v4
+          with:
+            token: ${{ secrets.PAT }}
+            base: rc
+            branch: master
+            title: Merge master branch to rc branch
