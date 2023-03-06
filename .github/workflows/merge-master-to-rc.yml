@@ -26,15 +26,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: FAIL
-        run: |
-          exit 1
-
       - name: Create pull request
         if: ${{ failure() }}
-        uses: peter-evans/create-pull-request@v4
+        uses: actions/github-script@v6
         with:
-          token: ${{ secrets.PAT }}
-          base: rc
-          branch: master
-          title: Merge master branch to rc branch
+          script: |
+            github.rest.pulls.create({
+              owner: "rgdelato",
+              repo: "hello-world-using-action",
+              title: "Merge master branch to rc branch",
+              head: "master",
+              base: "rc",
+              body: "Does this work?"
+            })
