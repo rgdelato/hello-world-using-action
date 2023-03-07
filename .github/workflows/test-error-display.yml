@@ -1,0 +1,14 @@
+name: "Test error display"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  merge:
+    name: Merge master to rc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display
+        run: |
+          echo "::error::Please merge major and minor changes to 'rc' branch."
+          exit 1
