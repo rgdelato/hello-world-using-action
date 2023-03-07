@@ -35,6 +35,17 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const test = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: context.repo.owner + 'master',
+              base: 'rc'
+            })
+
+            console.log(test)
+            return 0
+
             github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
