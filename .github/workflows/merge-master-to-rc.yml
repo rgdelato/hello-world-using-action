@@ -10,6 +10,7 @@ on:
 
 jobs:
   nightly-merge:
+    name: Merge master branch to rc branch
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,7 +23,9 @@ jobs:
         with:
           stable_branch: "master"
           development_branch: "rc"
-          allow_ff: false
+          allow_ff: true
+          user_name: github-actions
+          user_email: github-actions@github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -31,11 +34,12 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            github.rest.pulls.create({
+            const test = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: "⚠️ Merge master branch to rc branch ⚠️",
               head: "master",
               base: "rc",
-              body: "Does this work?"
+              body: "Auto-merging master branch into rc branch failed due to conflicts. Please perform this merge manually."
             })
+            console.log(test)
