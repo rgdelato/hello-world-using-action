@@ -36,7 +36,7 @@ jobs:
         with:
           script: |
             // Check if an open PR already exists
-            const {data} = await github.rest.pulls.list({
+            const existingPRs = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
@@ -44,16 +44,24 @@ jobs:
               base: 'rc'
             })
 
-            if (data.length > 0) {
+            if (existingPRs.data.length > 0) {
               return
             }
 
             // if not, create a new PR
-            await github.rest.pulls.create({
+            const newPR = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: "⚠️ Merge master branch to rc branch ⚠️",
               head: "master",
               base: "rc",
               body: "Auto-merging master branch into rc branch failed due to conflicts. Please perform this merge manually."
+            })
+
+            // add labels
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: newPR.data.number,
+              labels: ['internal', 'skip-release']
             })
