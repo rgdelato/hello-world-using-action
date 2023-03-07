@@ -1,4 +1,4 @@
-name: "Nightly Merge"
+name: "Merge master to rc"
 
 # on:
 #   push:
@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  nightly-merge:
-    name: Merge master branch to rc branch
+  merge:
+    name: Merge master to rc
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,7 +18,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Merge master to rc
+      - name: Attempt to merge
+        id: merge
         uses: robotology/gh-action-nightly-merge@v1.4.0
         with:
           stable_branch: "master"
@@ -30,11 +31,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create pull request
-        if: ${{ failure() }}
+        if: ${{ failure() && steps.merge.conclusion == 'failure' }}
         uses: actions/github-script@v6
         with:
           script: |
-            const test = await github.rest.pulls.create({
+            github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: "⚠️ Merge master branch to rc branch ⚠️",
@@ -42,4 +43,3 @@ jobs:
               base: "rc",
               body: "Auto-merging master branch into rc branch failed due to conflicts. Please perform this merge manually."
             })
-            console.log(test)
