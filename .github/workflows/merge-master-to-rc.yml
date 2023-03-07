@@ -1,11 +1,10 @@
 name: "Merge master to rc"
 
-# on:
-#   push:
-#     branches:
-#       - master
-
 on:
+  push:
+    branches:
+      - master
+
   workflow_dispatch:
 
 jobs:
@@ -58,7 +57,7 @@ jobs:
               body: "Auto-merging master branch into rc branch failed due to conflicts. Please perform this merge manually."
             })
 
-            // add labels
+            // add labels to new PR
             await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
