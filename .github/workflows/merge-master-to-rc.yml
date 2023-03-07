@@ -35,7 +35,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const test = await github.rest.pulls.list({
+            // Check if an open PR already exists
+            const {data} = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
@@ -43,10 +44,12 @@ jobs:
               base: 'rc'
             })
 
-            console.log(test)
-            return 0
+            if (data.length > 0) {
+              return
+            }
 
-            github.rest.pulls.create({
+            // if not, create a new PR
+            await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: "⚠️ Merge master branch to rc branch ⚠️",
