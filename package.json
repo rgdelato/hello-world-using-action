@@ -25,13 +25,18 @@
     "@auto-it/released": "^10.31.0",
     "@types/jest": "^27.0.1",
     "auto": "^10.31.0",
+    "cli-confirm": "^1.0.1",
     "jest": "^27.2.0",
     "jquery": "^2.2.4",
+    "lerna": "^6.6.2",
     "lodash": "^4.17.21",
     "mobx": "^6.3.0",
     "react": "^15.7.0",
     "react-dom": "^15.7.0",
     "react-router": "^4.3.1",
     "redux": "^4.1.2"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
