@@ -1,0 +1,22 @@
+name: Don't merge to "next" branch
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
+      - edited
+
+jobs:
+  check_base_ref_branch:
+    name: Don't merge to "next" branch
+    runs-on: ubuntu-latest
+    if: ${{ github.base_ref == 'next' }}
+    steps:
+      - name: Display error message
+        run: |
+          echo "::error::Please merge changes to 'master' branch or a feature branch."
+          exit 1
