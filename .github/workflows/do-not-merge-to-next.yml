@@ -19,5 +19,5 @@ jobs:
     steps:
       - name: Display error message
         run: |
-          echo "::error::Please merge changes to 'master' branch or a feature branch."
+          echo "::error::Please merge changes to 'master' branch or to a feature branch."
           exit 1
