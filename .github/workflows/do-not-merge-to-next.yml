@@ -1,4 +1,4 @@
-name: Don't merge to "next" branch
+name: PR check
 
 on:
   pull_request:
