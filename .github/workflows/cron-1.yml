@@ -1,0 +1,69 @@
+name: Cron (1)
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "30 21 * * 1-5"
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Publish mode"
+        required: true
+        default: "preview"
+        type: choice
+        options:
+          - preview
+          - publish
+          - force-version
+      version:
+        type: string
+        description: "Force version number"
+      dist-tag:
+        type: string
+        description: "Force version tag"
+        default: "latest"
+
+jobs:
+  check-inputs:
+    name: Check inputs
+    if: ${{ !github.event.schedule }}
+    runs-on: ubuntu-latest
+    steps:
+      - if: ${{ github.event.inputs.mode != 'force-version' && github.event.inputs.version != '' }}
+        run: |
+          echo "::error::Please choose version mode when forcing a version number"
+          exit 1
+      - if: ${{ github.event.inputs.mode == 'force-version' && github.event.inputs.version == '' }}
+        run: |
+          echo "::error::Please enter a version number when forcing a specific publish version"
+          exit 1
+
+  check-cron:
+    name: Check daily release
+    if: ${{ github.event.schedule }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - run: |
+          test "$(npx auto version)" != "patch"
+
+      - run: |
+          test "$(npx auto version)" != "major"
+
+  build:
+    name: Node v${{ matrix.node }}
+    if: ${{ github.event.schedule || github.event.inputs.mode == 'publish' || github.event.inputs.mode == 'force-version' || (github.event_name == 'push' && github.ref_name == 'master') }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
