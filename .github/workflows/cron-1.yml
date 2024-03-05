@@ -3,7 +3,7 @@ name: Cron (1)
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron: "30 21 * * 1-5"
+    - cron: "35 21 * * 1-5"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
