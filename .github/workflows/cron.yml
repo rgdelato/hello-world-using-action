@@ -37,12 +37,6 @@ jobs:
             exit 1
           fi
 
-          if [ "$semver" = "patch" ];
-          then
-            echo "::error::The daily release tried to publish a patch version"
-            exit 1
-          fi
-
       - if: ${{ github.event.schedule && github.event.inputs.mode != 'force-version' && github.event.inputs.version != '' }}
         run: |
           echo "::error::Please choose version mode when forcing a version number"
