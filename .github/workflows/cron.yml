@@ -12,29 +12,44 @@ jobs:
     name: Check version
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - run: |
+          npx auto version
+  
+      - run: |
+          if [[ "$(npx auto version)" != "patch" ]];
+          then
+            echo "Not a patch version"
+          else
+            echo "::error::It is a patch version"
+            exit 1
+          fi
+
+      - run: |
+          if [[ "$(npx auto version)" != "major" ]];
+          then
+            echo "Not a major version"
+          else
+            echo "::error::It is a major version"
+            exit 1
+          fi
+
       - if: ${{ github.event.schedule && github.event.inputs.mode != 'force-version' && github.event.inputs.version != '' }}
         run: |
           echo "::error::Please choose version mode when forcing a version number"
           exit 1
+
       - if: ${{ github.event.schedule && github.event.inputs.mode == 'force-version' && github.event.inputs.version == '' }}
         run: |
           echo "::error::Please enter a version number when forcing a specific publish version"
           exit 1
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-  
-      - run: |
-          test "$(npx auto version)" != "patch" && exit 0 || exit 1
-
-      - run: |
-          test "$(npx auto version)" != "major" && exit 0 || exit 1
-
   build:
     name: Node v${{ matrix.node }}
-    if: ${{ github.event.schedule || github.event.inputs.mode == 'publish' || github.event.inputs.mode == 'force-version' || (github.event_name == 'push' && github.ref_name == 'master') }}
     needs: check-version
     runs-on: ubuntu-latest
     strategy:
