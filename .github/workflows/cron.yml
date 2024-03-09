@@ -1,5 +1,8 @@
 name: Cron
 
+env:
+  GH_TOKEN: ${{ secrets.PAT }}
+
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
