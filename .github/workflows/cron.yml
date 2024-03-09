@@ -25,23 +25,21 @@ jobs:
   
       - run: |
           semver=$(npx auto version)
-          if [ "$semver" = "" ] || [ "$semver" = "patch" ];
+          if [ "$semver" = "" ];
           then
-            echo "::error::It is a patch version"
-            exit 1
-          fi
-          
-      - run: |
-          if [ "$(npx auto version)" = "" || "$(npx auto version)" = "patch" ];
-          then
-            echo "::error::It is a patch version"
+            echo "::error::There is no release to publish today"
             exit 1
           fi
 
-      - run: |
-          if [ "$(npx auto version)" = "major" || "$(npx auto version)" = "" ];
+          if [ "$semver" = "major" ];
           then
-            echo "::error::It is a major version"
+            echo "::error::The daily release tried to publish a major version"
+            exit 1
+          fi
+
+          if [ "$semver" = "patch" ];
+          then
+            echo "::error::The daily release tried to publish a patch version"
             exit 1
           fi
 
