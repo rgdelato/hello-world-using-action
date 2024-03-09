@@ -24,19 +24,15 @@ jobs:
           npx auto version
   
       - run: |
-          if [[ "$(npx auto version)" != "patch" ]];
+          if [[ "$(npx auto version)" = "patch" ]];
           then
-            echo "Not a patch version"
-          else
             echo "::error::It is a patch version"
             exit 1
           fi
 
       - run: |
-          if [[ "$(npx auto version)" != "major" ]];
+          if [[ "$(npx auto version)" = "major" ]];
           then
-            echo "Not a major version"
-          else
             echo "::error::It is a major version"
             exit 1
           fi
