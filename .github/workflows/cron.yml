@@ -24,6 +24,14 @@ jobs:
           npx auto version
   
       - run: |
+          semver=$(npx auto version)
+          if [ "$semver" = "" || "$semver" = "patch" ];
+          then
+            echo "::error::It is a patch version"
+            exit 1
+          fi
+          
+      - run: |
           if [ "$(npx auto version)" = "" || "$(npx auto version)" = "patch" ];
           then
             echo "::error::It is a patch version"
