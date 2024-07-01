@@ -1,4 +1,4 @@
-name: Cron
+name: Create Release
 
 env:
   GH_TOKEN: ${{ secrets.PAT }}
