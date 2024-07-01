@@ -34,16 +34,7 @@ jobs:
             github.rest.repos.createRelease({
               name: "v1.0.3",
               tag_name: "v1.0.3",
-              body: ```
-                #### 🐛 Bug Fix
-                
-                - ANV-963: Add missing `Layout` export [#107](https://github.com/servicetitan/anvil2/pull/107) ([@w-a-t-s-o-n](https://github.com/w-a-t-s-o-n))
-                - ANV-975: Add Final Panel [#102](https://github.com/servicetitan/anvil2/pull/102) ([@pbuckingham-st](https://github.com/pbuckingham-st) [@rgdelato](https://github.com/rgdelato))
-                
-                #### ⚠️ Pushed to `master`
-                
-                - 1.0.2 (github-actions@github.com)
-              ```,
+              body: "#### 🐛 Bug Fix\n\n- ANV-963: Add missing `Layout` export [#107](https://github.com/servicetitan/anvil2/pull/107) ([@w-a-t-s-o-n](https://github.com/w-a-t-s-o-n))\n- ANV-975: Add Final Panel [#102](https://github.com/servicetitan/anvil2/pull/102) ([@pbuckingham-st](https://github.com/pbuckingham-st) [@rgdelato](https://github.com/rgdelato))\n\n#### ⚠️ Pushed to `master`\n\n- 1.0.2 (github-actions@github.com)",
               prerelease: false,
             })
 
