@@ -1,0 +1,52 @@
+name: Cron
+
+env:
+  GH_TOKEN: ${{ secrets.PAT }}
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  check-version:
+    name: Check version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+
+      - uses: actions/github-script@v7
+        id: set-result
+        with:
+          result-encoding: string
+          script: |
+            github.rest.repos.createRelease({
+              name: "v1.0.3",
+              tag_name: "v1.0.3",
+              body: ```
+                #### 🐛 Bug Fix
+                
+                - ANV-963: Add missing `Layout` export [#107](https://github.com/servicetitan/anvil2/pull/107) ([@w-a-t-s-o-n](https://github.com/w-a-t-s-o-n))
+                - ANV-975: Add Final Panel [#102](https://github.com/servicetitan/anvil2/pull/102) ([@pbuckingham-st](https://github.com/pbuckingham-st) [@rgdelato](https://github.com/rgdelato))
+                
+                #### ⚠️ Pushed to `master`
+                
+                - 1.0.2 (github-actions@github.com)
+              ```,
+              prerelease: false,
+            })
+
+      - run: |
+          git status
+          exit 1
